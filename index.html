@@ -686,8 +686,9 @@ alertBox.addEventListener("mouseleave", () => {
 
 function Arduino(porcentaje) {
   const grados = (porcentaje >= 20) ? 90 : 0;
+  const velocidad = porcentaje;
   Protobject.Core.send({
-    Porcentaje: porcentaje,
+    Porcentaje: velocidad,
     Grados: grados
   }).to("arduino.html");
 };
