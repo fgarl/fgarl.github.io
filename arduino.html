@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arduino servo</title>
+  </head>
+  <body>
+    <script src="https://app.protobject.com/framework/p.js"></script>
+    <h1>Arduino servo control</h1>
+    <script>
+      Protobject.Arduino.start();
+
+      Protobject.Core.onReceived((data) => {
+        Protobject.Arduino.servoWrite({ pin: 5, value: data.Porcentaje })//servo C en pin 5
+        Protobject.Arduino.servoWrite({ pin: 6, value: data.Grados }); //servo M en pin 6
+        
+      });
+    </script>
+  </body>
+</html>

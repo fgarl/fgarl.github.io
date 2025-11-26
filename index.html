@@ -238,6 +238,7 @@ body.dark-mode .legend-dot.active{
 </style>
 </head>
 <body>
+<script src="https://app.protobject.com/framework/p.js"></script>
 
   <h1>Superficie Afectada por Ruido Vehicular por Comuna - Gran Santiago 2023</h1>
 
@@ -596,6 +597,8 @@ document.addEventListener('DOMContentLoaded', () => {
           // Puntero fijo a último hover en el modo activo
           ultimoHoverPct = c[key];
           actualizarLeyenda(modoActivo, maxOfKey(key));
+
+          Arduino(ultimoHoverPct);
         }
       });
 
@@ -680,9 +683,29 @@ alertBox.addEventListener("mouseleave", () => {
   }, 200);
 });
 
+Protobject.setProduction(true);
 
+Protobject.initialize(
+    [
+        { 
+            name: "Servo",
+            page: "arduino.html",
+        },
+        { 
+            name: "Vis",
+            page: "index.html",
+            main: true,
+        }
+    ]
+);
 
-
+function Arduino(porcentaje) {
+  const grados = (porcentaje >= 20) ? 90 : 0;
+  Protobject.Core.send({
+    Porcentaje: porcentaje,
+    Grados: grados
+  }).to("arduino.html");
+};
 
 
 </script>
